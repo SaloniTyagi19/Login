@@ -19,11 +19,12 @@ def form():
 def login():
 	user_name = request.form['uname']
 	pass1 = request.form['pass']
-	if(user_name=="vaibhav" and pass1=="abcd12"):
-		return jsonify({'status': 200, 'msg' :"Success"})
-	elif(user_name=="vaibhav" and pass1=="abcd"):
-		return jsonify({'status' : 201, 'msg': "Failure: password should be of length 6"})
-	elif(user_name=="vaibhav" and pass1=="abcdef"):
-		return jsonify({'status': 202, 'msg': "Failure: password to have 1 character and 1 number"})
-	elif(user_name=="1234" and pass1=="abcd12"):
+	if(user_name.isalpha() == True):
+		if(len(pass1) < 6):
+			return jsonify({'status' : 201, 'msg': "Failure: Password should be of length 6"})
+		elif(pass1.isalpha() == True):
+			return jsonify({'status': 202, 'msg': "Failure: password to have 1 character and 1 number"})
+		else:
+			return jsonify({'status': 200, 'msg': "Success"})
+	else:
 		return jsonify({'status': 203, 'msg': "Failure: only characters allowed in username"})
